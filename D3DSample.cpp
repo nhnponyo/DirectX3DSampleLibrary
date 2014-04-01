@@ -230,7 +230,7 @@ LRESULT WINAPI D3DSample::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 	switch ( msg )
 	{
 		case WM_DESTROY:
-			// Cleanup();
+			Cleanup();
 			PostQuitMessage( 0 );
 			return 0;
 	}
@@ -250,7 +250,7 @@ INT D3DSample::CreateSample()
 	// Register the window class
 	WNDCLASSEX wc =
 	{
-		sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc, 0L, 0L,
+		sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc2, 0L, 0L,
 		GetModuleHandle( NULL ), NULL, NULL, NULL, NULL,
 		L"D3D Tutorial", NULL
 	};
@@ -289,4 +289,13 @@ INT D3DSample::CreateSample()
 
 	UnregisterClass( L"D3D Tutorial", wc.hInstance );
 	return 0;
+}
+
+LRESULT CALLBACK D3DSample::MsgProc2( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+{
+	D3DSample* pD3DSample = (D3DSample*) GetProp( hWnd, L"Mesh Sample" );
+	if ( pD3DSample )
+		return pD3DSample->MsgProc( hWnd, msg, wParam, lParam );
+	else
+		return DefWindowProc( hWnd, msg, wParam, lParam );
 }

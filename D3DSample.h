@@ -28,7 +28,8 @@ public:
 	VOID Cleanup();
 	VOID SetupMatrices();
 	VOID Render();
-	static LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+	LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+	static LRESULT CALLBACK MsgProc2( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 	INT CreateSample();
 
 	};
